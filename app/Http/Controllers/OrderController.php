@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Order;
 use App\Partner;
-use Illuminate\Http\Request;
+use App\Http\Requests\OrderRequest;
 
 class OrderController extends SiteController
 {
@@ -40,7 +40,7 @@ class OrderController extends SiteController
      */
     public function store(Request $request)
     {
-        //
+        return redirect('/orders');
     }
 
     /**
@@ -74,13 +74,22 @@ class OrderController extends SiteController
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\OrderRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(OrderRequest $request, $id)
     {
-        //
+        $order = Order::findOrFail($id);
+        $order->fill($request->all());
+        try{
+            $order->save();
+            session()->flash('success', trans('system.order_updated'));
+        } catch (\Exception $e){
+            session()->flash('error', $e->getMessage());
+            return redirect()->back()->withInput();
+        }
+        return redirect('/orders');
     }
 
     /**
@@ -91,6 +100,6 @@ class OrderController extends SiteController
      */
     public function destroy($id)
     {
-        //
+        return redirect('/orders');
     }
 }

@@ -2,6 +2,6 @@
 
 @section('content')
 	@if($weather)
-<h3>Температура в Брянске: {{$weather}}&deg; C</h3>
+<h3>{{__('system.temperature')}}: {{$weather}}&deg; C</h3>
 	@endif
 @endsection
