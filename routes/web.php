@@ -11,4 +11,8 @@
 |
 */
 
+/*DB::listen(function($query) {
+    dump($query->sql, $query->bindings);
+});*/
 Route::get('/', 'WeatherController@index');
+Route::resource('/orders', 'OrderController');
