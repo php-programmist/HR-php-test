@@ -7,7 +7,7 @@
 				<tr>
 					<th>{{ __('system.id') }}</th>
 					<th>{{ __('system.partner') }}</th>
-					<th>{{ __('system.price') }}</th>
+					<th>{{ __('system.price_total') }}</th>
 					<th>{{ __('system.name') }}</th>
 					<th>{{ __('system.status') }}</th>
 				</tr>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Order;
+use App\Partner;
 use Illuminate\Http\Request;
 
 class OrderController extends SiteController
@@ -28,7 +29,7 @@ class OrderController extends SiteController
      */
     public function create()
     {
-        //
+        return redirect('/orders');
     }
 
     /**
@@ -50,7 +51,7 @@ class OrderController extends SiteController
      */
     public function show($id)
     {
-        //
+        return redirect('/orders');
     }
 
     /**
@@ -61,7 +62,13 @@ class OrderController extends SiteController
      */
     public function edit($id)
     {
-        //
+        $order = Order::findOrFail($id);
+        $products = $order->getProductsList();
+        $partners = Partner::getOptionsList();
+        $title = __('system.order_edit');
+        $this->template = 'order';
+        $this->vars = compact('order','title','partners','products');
+        return $this->renderOutput();
     }
 
     /**

@@ -18,9 +18,12 @@ class Order extends Model
     
     public function getStatus($status_id)
     {
-        $statusList = ['0' => __('system.new'), '10' => __('system.confirmed'), '20' => __('system.completed')];
-        
-        return $statusList[$status_id];
+        return $this->getStatusesList()[$status_id];
+    }
+    
+    public function getStatusesList()
+    {
+        return ['0' => __('system.new'), '10' => __('system.confirmed'), '20' => __('system.completed')];
     }
     
     public function getTotalPrice()
@@ -40,4 +43,16 @@ class Order extends Model
         $names = $products->pluck('name')->all();
         return implode(", ",$names);
     }
+    public function getProductsList()
+    {
+        $products = $this->products;
+        $list = [];
+        foreach ($products as $index => $product) {
+            $list[$index]['name'] = $product->name;
+            $list[$index]['quantity'] = $product->pivot->quantity;
+        }
+        return $list;
+    }
+    
+    
 }
